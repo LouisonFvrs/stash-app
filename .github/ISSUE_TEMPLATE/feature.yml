@@ -1,0 +1,77 @@
+name: Feature
+description: Nouvelle fonctionnalité (à compléter jusqu'à la Definition of Ready)
+title: "[Feature] "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        La spécification détaillée (règles de gestion, critères d'acceptation, matrice des droits, diagrammes, endpoints) vit dans le document de feature. Cette issue en est le point d'entrée.
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User story
+      description: En tant que [type d'utilisateur], je veux [action] afin de [bénéfice]
+      placeholder: En tant que gestionnaire, je veux exporter la liste des clients en CSV afin de l'analyser dans Excel.
+    validations:
+      required: true
+
+  - type: input
+    id: document
+    attributes:
+      label: Document de feature
+      description: Lien vers la spécification de la feature dans l'espace de documentation
+    validations:
+      required: true
+
+  - type: input
+    id: figma
+    attributes:
+      label: Maquette Figma
+      description: Lien vers la maquette, si la feature a une interface
+
+  - type: textarea
+    id: hors-perimetre
+    attributes:
+      label: Hors périmètre
+      description: Ce que cette feature ne fait volontairement pas
+
+  - type: checkboxes
+    id: dor-besoin
+    attributes:
+      label: Definition of Ready — Besoin
+      options:
+        - label: Le besoin est retranscrit dans le document de la feature
+        - label: La feature est exprimée en une phrase (user story ci-dessus)
+        - label: Le demandeur a validé la reformulation du besoin
+        - label: Le document de feature référence cette issue
+        - label: La priorité est définie dans le GitHub Project
+
+  - type: checkboxes
+    id: dor-specification
+    attributes:
+      label: Definition of Ready — Spécification
+      options:
+        - label: Les acteurs concernés sont listés
+        - label: La matrice des droits est établie
+        - label: La ou les user stories sont rédigées
+        - label: Le diagramme de cas d'utilisation est réalisé
+        - label: Le tableau des règles de gestion est complet
+        - label: Le tableau des critères d'acceptation est complet et couvre chaque règle de gestion
+        - label: Les cas limites et cas d'erreur sont traités dans les scénarios alternatifs
+        - label: Le hors périmètre est noté
+        - label: Il ne reste aucune question ouverte bloquante
+
+  - type: checkboxes
+    id: dor-conception
+    attributes:
+      label: Definition of Ready — Conception
+      options:
+        - label: "Si interface : la maquette Figma est réalisée et liée à cette issue"
+        - label: Le diagramme de classes est réalisé ou mis à jour
+        - label: "Si échanges entre composants (authentification, OAuth2, appels d'API) : le diagramme de séquence est réalisé"
+        - label: Les endpoints sont documentés dans le document de la feature selon la norme
+        - label: Les choix techniques sont documentés avec leur justification
+        - label: Les impacts sur l'existant sont identifiés
+        - label: J'ai relu et validé l'ensemble de la conception
