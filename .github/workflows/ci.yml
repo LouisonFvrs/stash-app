@@ -1,0 +1,42 @@
+# Pipeline CI/CD : les jobs de l'API, du front, des images et du déploiement
+# arrivent avec les features Intégration continue et Déploiement continu
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop]
+    tags: ["v*"]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Les PR vers main ne peuvent venir que de develop
+  provenance:
+    name: Provenance de la PR
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier que la PR vient de develop
+        run: |
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "::error::Une PR vers main doit venir de develop (branche source : ${{ github.head_ref }})"
+            exit 1
+          fi
+
+  # Format Conventional Commits sur tous les commits de la PR
+  # (les PR de Dependabot n'ont pas de numéro d'issue : elles sont exemptées)
+  commits:
+    name: Format des commits
+    if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: commitlint.config.mjs

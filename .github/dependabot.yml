@@ -1,0 +1,11 @@
+# Mises à jour de sécurité et de version des dépendances, chaque semaine, vers develop
+# Les écosystèmes gradle, npm et docker s'ajoutent avec l'API, le front et les images
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
